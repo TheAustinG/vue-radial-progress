@@ -9,7 +9,7 @@
          version="1.1"
          xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient :id="'radial-gradient' + _uid"
+        <radialGradient :id="'radial-gradient' + uuid"
                         :fx="gradient.fx"
                         :fy="gradient.fy"
                         :cx="gradient.cx"
@@ -33,7 +33,7 @@
               :cx="radius"
               :cy="radius"
               fill="transparent"
-              :stroke="'url(#radial-gradient' + _uid + ')'"
+              :stroke="'url(#radial-gradient' + uuid + ')'"
               :stroke-dasharray="circumference"
               :stroke-dashoffset="circumference"
               :stroke-linecap="strokeLinecap"
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+let uuid = 0;
 export default {
   props: {
     diameter: {
@@ -298,6 +299,11 @@ export default {
     strokeWidth () {
       this.changeProgress({ isAnimate: true })
     }
+  },
+
+  beforeCreate() {
+    this.uuid = uuid.toString();
+    uuid += 1;
   },
 
   created () {
